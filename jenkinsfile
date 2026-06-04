@@ -1,0 +1,53 @@
+pipeline{
+    agent any
+    environment{
+        BUILD_DIR = 'target'
+        ARTIFACT_NAME = 'student-app'
+    }
+    stages{
+        stage('checkout code'){
+            steps{
+                echo "checking out branch ${params.BRANCH}"
+
+                git branch: "${params.BRANCH}"
+                url: "https://github.com/GaneshRagolu001/student-app"
+            }
+        }
+        stage('build code'){
+            steps{
+                echo "Building Code"
+                bat 'mvn clean compile'
+            }
+        }
+        stage('Unit test'){
+            steps{
+                echo "Running Unit Tests"
+                bat 'mvn test'
+            }
+        }
+        stage('Code Analysis'){
+            steps{
+                echo "Running Code Analysis"
+                bat 'mvn verify'
+            }
+        }
+        stage('Package code'){
+            steps{
+                echo "Packaging Code"
+                bat 'mvn package'
+            }
+        }
+    }
+
+    post{
+        always{
+            echo "pipeline started"
+        }
+        success{
+            echo "pipeline completed successfully"
+        }
+        failure{
+            echo "pipeline failed"
+        }
+    }
+}
