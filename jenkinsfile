@@ -8,9 +8,7 @@ pipeline{
         stage('checkout code'){
             steps{
                 echo "checking out branch ${params.BRANCH}"
-
-                git branch: "${params.BRANCH}"
-                git url: "https://github.com/GaneshRagolu001/student-app"
+                git branch: "${params.BRANCH}", url: "https://github.com/GaneshRagolu001/student-app"
             }
         }
         stage('build code'){
