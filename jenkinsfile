@@ -10,7 +10,7 @@ pipeline{
                 echo "checking out branch ${params.BRANCH}"
 
                 git branch: "${params.BRANCH}"
-                url: "https://github.com/GaneshRagolu001/student-app"
+                git url: "https://github.com/GaneshRagolu001/student-app"
             }
         }
         stage('build code'){
